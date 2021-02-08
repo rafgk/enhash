@@ -25,7 +25,7 @@
                 outlined
                 dense
                 prepend-icon="mdi-text"
-                v-bind="textSelected"
+                v-model="textSelected"
                 :disabled="hashing"
                 >
 
@@ -75,8 +75,8 @@
         </v-row>
         <v-row v-if="hash"
         class="justify-center">
-            <div>
-                Hash: {{hash}}
+            <div class="pa-3 rounded" style="border:2px solid black !important;">
+                <span class="font-weight-bold"> Hash:</span> {{hash}}
             </div> 
         </v-row>
         <v-row class="justify-center mt-15">
@@ -121,6 +121,7 @@ export default {
     }),
     methods:{
         hashFile:async function(){
+            this.hash = null
             this.error = null
             if(!this.algorithm){
                 this.error = "Please select a hashing algorithm"
@@ -135,6 +136,15 @@ export default {
                 this.hashing = true
                 if(this.hmac){
                     //hmac hashing
+                    let hash = crypto.createHmac(this.algorithm,this.hmacKey)
+                    let stream = fs.createReadStream(this.fileSelected.path)
+                    stream.on('data', (data) => {
+                        hash.update(data)
+                    })
+                    stream.on('end', ()=>{
+                        this.hash = hash.digest('hex')
+                        this.hashing = false
+                    }) 
 
                 }else{
                     //normal hashing
@@ -152,6 +162,7 @@ export default {
             }
         },
         hashText: async function(){
+            this.hash = null
             this.error = null
             if(!this.algorithm){
                 this.error = "Please select a hashing algorithm"
@@ -162,11 +173,13 @@ export default {
             }
             if(!this.error){
                 if(this.hmac){
-                //hmac hash
+                    this.hash = await crypto.createHmac(this.algorithm, this.hmacKey)
+                                            .update(this.textSelected)
+                                            .digest('hex')
                 }else{
                     this.hash = await crypto.createHash(this.algorithm)
-                                     .update(this.textSelected)
-                                     .digest('hex')
+                                            .update(this.textSelected)
+                                            .digest('hex')
                     
                 }
             }
