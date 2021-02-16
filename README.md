@@ -12,7 +12,7 @@ This is an attempt at making file signature verification more accessible and use
  :heavy_check_mark: Encrypts/Decrypts a file (beta)   
 ## Installation and usage
 
- 1. Download the installer here :package:
+ 1. Download the installer [here](https://github.com/IIrafail/enhash/tree/master/enhash_build) :package:
  2. Install and run
  3. Once opened select the function you want to perform from the list on the left
 
