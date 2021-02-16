@@ -1,22 +1,26 @@
 <template>
-  <v-app>
+  <v-app style="background-color:#30475e;">
       <v-navigation-drawer
       expand-on-hover
       width="200px"
       absolute
       permanent
-      class="green"
+      class="secondary"
       app
+      
     >
         
         <v-tabs
         vertical
         v-model="tab"
-        class="green">
-            <v-tabs-slider color="red" style="width:5px;"></v-tabs-slider>
+        class=""
+        dark
+        >
+            <v-tabs-slider color="primary" style="width:5px;"></v-tabs-slider>
             <v-tab
             href="#tab-1"
-            >
+            active-class="primary--text secondary lighten-1"
+            class="secondary">
                 <v-icon class="ml-1">
                     mdi-pound
                 </v-icon>
@@ -26,6 +30,8 @@
             </v-tab>
             <v-tab
             href="#tab-2"
+            active-class="primary--text secondary lighten-1"
+            class="secondary"
             >
                 <v-icon class="ml-1">
                     mdi-shield-check
@@ -36,6 +42,21 @@
             </v-tab>
             <v-tab
             href="#tab-3"
+            active-class="primary--text secondary lighten-1"
+            class="secondary"
+            >
+                <v-icon class="ml-1 mr-3">
+                    mdi-compare
+                </v-icon>
+                <v-spacer></v-spacer>
+                Compare
+                <v-spacer></v-spacer>
+            </v-tab>
+            
+            <v-tab
+            href="#tab-4"
+            active-class="primary--text secondary lighten-1"
+            class="secondary"
             >
                 <v-icon class="ml-1 mr-3">
                     mdi-lock
@@ -45,13 +66,15 @@
                 <v-spacer></v-spacer>
             </v-tab>
             <v-tab
-            href="#tab-4"
+            href="#tab-5"
+            active-class="primary--text secondary lighten-1"
+            class="secondary"
             >
                 <v-icon class="ml-1 mr-3">
-                    mdi-compare
+                    mdi-information
                 </v-icon>
                 <v-spacer></v-spacer>
-                Compare
+                About
                 <v-spacer></v-spacer>
             </v-tab>
         </v-tabs>
@@ -61,7 +84,7 @@
     <AppBar></AppBar>
 
     <v-main>
-      <v-tabs-items v-model="tab">
+      <v-tabs-items v-model="tab" style="background-color:#30475e">
         <v-tab-item
         value="tab-1"
         >
@@ -77,13 +100,18 @@
         <v-tab-item
         value="tab-3"
         >
-        <EncryptTab></EncryptTab>
+        <CompareTab></CompareTab>
         </v-tab-item>
         
         <v-tab-item
         value="tab-4"
         >
-        <CompareTab></CompareTab>
+        <EncryptTab></EncryptTab>
+        </v-tab-item>
+        <v-tab-item
+        value="tab-5"
+        >
+        <AboutTab></AboutTab>
         </v-tab-item>
       </v-tabs-items>
     </v-main>
@@ -95,7 +123,8 @@ import AppBar from './components/AppBar'
 import HashTab from './components/tabs/HashTab'
 import VerifyTab from './components/tabs/VerifyTab'
 import EncryptTab from './components/tabs/EncryptTab'
-import CompareTab from './components/tabs/VerifyTab'
+import CompareTab from './components/tabs/CompareTab'
+import AboutTab from './components/tabs/AboutTab'
 export default {
   name: 'App',
 
@@ -104,7 +133,8 @@ export default {
     HashTab,
     VerifyTab,
     EncryptTab,
-    CompareTab
+    CompareTab,
+    AboutTab
   },
 
   data: () => ({

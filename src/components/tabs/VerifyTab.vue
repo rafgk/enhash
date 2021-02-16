@@ -1,10 +1,10 @@
 <template>
     <v-container>
         <v-row 
-        class="text-h4 mt-3 font-weight-bold justify-center"
+        class="text-h4 mt-3 font-weight-bold accent--text  justify-center"
         style="user-select:none;"
         >Verify {{usingFile?'a file':'text'}}</v-row>
-        <v-row class="justify-center mt-5">
+        <v-row class="justify-center mt-9">
             <div v-if="usingFile">
                 <v-file-input
                 style="width:300px !important;"
@@ -15,6 +15,7 @@
                 label="Select file"
                 v-model="fileSelected"
                 :disabled="hashing"
+                filled
                 >
                 </v-file-input>
             </div>
@@ -27,6 +28,7 @@
                 prepend-icon="mdi-text"
                 v-model="textSelected"
                 :disabled="hashing"
+                filled
                 >
 
                 </v-text-field>
@@ -36,7 +38,8 @@
             <v-btn depressed
             @click="usingFile = !usingFile"
             :disabled="hashing"
-            class="white"
+            dark
+            class="button"
             >Use {{usingFile?'text':'file'}} instead</v-btn>
         </v-row>
         <v-row class="justify-space-around align-center mt-8">
@@ -48,12 +51,14 @@
                 :menu-props="{ bottom: true, offsetY: true }"
                 v-model="algorithm"
                 :disabled="hashing"
+                filled
                 ></v-select>
             </v-col>
             <v-col cols="4">
                 <v-row class="align-center">
                     <v-checkbox class="mt-0" v-model="hmac" :disabled="hashing"></v-checkbox>
                     <v-text-field label="HMAC secret key(optional)"
+                    filled
                     outlined
                     dense
                     :disabled="!hmac||hashing"
@@ -61,7 +66,7 @@
                 </v-row>
             </v-col>
         </v-row>
-        <v-row v-if="error" class="justify-center red--text">
+        <v-row v-if="error" class="justify-center primary--text">
             Error: {{error}}
         </v-row>
         <v-row class="justify-center">
@@ -88,6 +93,8 @@
                 :counter="algorithm?keySizes[algorithm]:null"
                 style="width:500px;"
                 :disabled="hashing"
+                filled
+                dense
                 >
 
                 </v-text-field>
@@ -124,8 +131,8 @@ export default {
         hashing:false,
         hmac:false,
         usingFile:true,
-        algorithms:['sha1','sha256','md5'],
-        keySizes:{'sha1':40,'sha256':64,'md5':32},
+        algorithms:['md5','sha256','sha1','ripemd160','md4','sha224','sha384','sha512'],
+        keySizes:{'sha1':40,'sha256':64,'md5':32,'md4':32,'sha224':56,'sha384':96,'sha512':128,'ripemd160':40},
         algorithm:null,
         fileSelected:null,
         textSelected:null,
@@ -140,6 +147,7 @@ export default {
             //this.hash = null
             this.error = null
             this.result = null
+            this.expectedHash = this.expectedHash.replace(/\s/g, '');
             if(!this.algorithm){
                 this.error = "Please select a hashing algorithm"
             }else if(!this.fileSelected){
@@ -157,6 +165,10 @@ export default {
                     this.stream.on('data', (data) => {
                         hash.update(data)
                     })
+                    this.stream.on('error', ()=>{
+                        this.hashing = false
+                        this.error = "Error while reading the file"
+                        })
                     this.stream.on('end', ()=>{
                         hash = hash.digest('hex')
                         this.expectedHash.toLowerCase()===hash?this.result=true:this.result=false
@@ -169,6 +181,10 @@ export default {
                     this.stream.on('data', (data) => {
                         hash.update(data)
                     })
+                    this.stream.on('error', ()=>{
+                        this.hashing = false
+                        this.error = "Error while reading the file"
+                        })
                     this.stream.on('end', ()=>{
                         hash = hash.digest('hex')
                         this.expectedHash.toLowerCase()===hash?this.result=true:this.result=false;
