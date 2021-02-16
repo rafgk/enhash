@@ -43,13 +43,13 @@ Same as with hashing but you must enter the expected hash of the file that you g
 ![enter image description here](https://i.imgur.com/jTqopMm.png)
 
 ## To do:
-There a few things that will be changed in future releases
+There a few things that will be changed in future releases  
 
  - More comments on the code
  - Write tests
  - Fix the edge cases with the encryption functionality
 
 ## Known issues
-:x: If you try decrypting an already decrypted file the application might break
-:x: If you try encrypting an already encrypted file the application will break
+:x: If you try decrypting an already decrypted file the application might break  
+:x: If you try encrypting an already encrypted file the application will break  
 If you find any bugs make sure you create an issue so that I can try to fix it, or fix it yourself and make a pull request! Also suggestions are welcome!
