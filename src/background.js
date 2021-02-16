@@ -18,6 +18,7 @@ async function createWindow() {
     height: 600,
     frame:false,
     resizable:false,
+    icon: __dirname+'/icon.ico',
     webPreferences: {
       enableRemoteModule:true,
       // Use pluginOptions.nodeIntegration, leave this alone
