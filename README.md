@@ -1,15 +1,15 @@
 ﻿# Enhash GUI Toolkit
-Current release: 0.5
+Current release: 0.5  
 For many important files there usually is a signature provided to verify the authenticity of the data and to make sure the files are safe. Right now most tools are not user friendly, have a cluttered interface and are not available in all platforms.
 
 This is an attempt at making file signature verification more accessible and user friendly. Enhash is made with Node.js, Electron.js and Vue.js to create a fast, stable and good looking tool that can be used by everyone with minimal effort. 
 ## What does it do?
 
- :heavy_check_mark: Creates a hash from a file or text
- :heavy_check_mark: Creates a hash using an HMAC
- :heavy_check_mark: Verifies the integrity of a file using a hash provided by the user
- :heavy_check_mark: Compares two files to make sure they are identical
- :heavy_check_mark: Encrypts/Decrypts a file (beta) 
+ :heavy_check_mark: Creates a hash from a file or text  
+ :heavy_check_mark: Creates a hash using an HMAC  
+ :heavy_check_mark: Verifies the integrity of a file using a hash provided by the user  
+ :heavy_check_mark: Compares two files to make sure they are identical  
+ :heavy_check_mark: Encrypts/Decrypts a file (beta)   
 ## Installation and usage
 
  1. Download the installer here :package:
