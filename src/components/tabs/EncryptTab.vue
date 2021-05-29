@@ -116,9 +116,10 @@ export default {
         }
     }),
     methods:{
+        //TODO: Check if file is already encrypted/decrypted 
         encryptFile:async function(){
             if(this.$refs.form.validate()){
-                //set password requirements
+                //TODO: set password requirements
                 this.processing = true
                 new cryptify(this.fileSelected.path, this.password,this.algorithm)
                 .encrypt().then(()=>{

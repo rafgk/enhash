@@ -139,13 +139,15 @@ export default {
     }),
     methods:{
         hashFile:async function(){
+            //Reset hash and remove any errors from previous operation
             this.hash = null
             this.error = null
+            //Form validation, to be changed with vuetify validation
             if(!this.algorithm){
                 this.error = "Please select a hashing algorithm"
             }else if(!this.fileSelected){
                 this.error = "Please select a file to hash"
-            }else if(this.hmac && this.hmacKey.length < 2){
+            }else if(this.hmac && this.hmacKey.length < 1){
                 this.error = "Add a valid HMAC key"
             }
             //Start the hashing!
@@ -216,6 +218,7 @@ export default {
         }
         ,
         cancelOperation:async function(){
+            //Stop operation
             if(this.stream){
                 this.stream.destroy()
                 this.hashing = false
